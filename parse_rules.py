@@ -47,7 +47,7 @@ def order_rules(rules):
 #    raise "DONE"
     return ret
 def parse_rules(raw_rules):
-    return post_parse_rules(pre_parse_rules(raw_rules))
+    return post_parse_rules(order_rules(pre_parse_rules(raw_rules)))
 
 def post_parse_rules(sorted_rules):
     unambigous_rules_temp = []
