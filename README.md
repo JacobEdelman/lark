@@ -6,7 +6,7 @@ ______
 
 ## Use
 Lark is used in the following manner:
-`./lark [space seperated file names to execute]`
+`python lark [space seperated file names to execute]`
 More info on use will be added shortly.
 
 ## Status
