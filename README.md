@@ -32,7 +32,7 @@ Jacob Edelman is the leader and creator of Lark. Pull requests are welcome.
 - _"We need to force-feed JacobEdelman some JSLint."_ - Anonymous on the horrible JS style in an earlier version of Lark.
 
 - _"Your language seems like total nonsense and deserves to be executed publicly."_  - @HyperSonic upon seeing the first somewhat functioning version of lark.
-- 
+
 -  _"As far as I'm concerned, self-mutate is synonymous with self-mutilate in terms of a programming language's capabilities."_ - @aatxe on Lark's mutable syntax.
 
 - _"Language appears to have no use to anyone. Please consider fixing this in the next update."_ - On Github by z3t in a Lark issue. 
