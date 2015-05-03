@@ -1,8 +1,3 @@
-# -*- coding: utf-8 -*-
-# <nbformat>3.0</nbformat>
-
-# <codecell>
-
 
 import lexer
 import parse_rules
@@ -10,7 +5,6 @@ import lark_utils
 import terms
 import parse_expr
 import sys
-# <codecell>
 
 
 Fail = lark_utils.Fail
@@ -58,14 +52,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-# for i in exprs:
-#     print i
-
-# # prog = "f(15)"
-# # #
-# #
-# print lark_utils.flatten(parse_expr.parse_expr(lexer.lex("if True f(10) else f(30)"),exprs).exe(exprs)).replace("'","")
-# <codecell>
-
-# import cProfile
-# cProfile.run('x=17;print str(parse_expr.parse_expr(lexer.lex("f(19)"),exprs).exe(exprs))')
