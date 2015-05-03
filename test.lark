@@ -1,32 +1,39 @@
 fib($x)=fib($x-1)+fib($x-2)
 fib(1)=1
 fib(2)=1
+
 ($x)=$x
+
 nil+cons($x, $y)=cons($x, $y)
 nil+nil = nil
+
 cons($x, $y)+$z= cons($x, $y+$z)
+
 True = True
 False = False
+
 if True $x else $y = $x
 if False $x else $y = $y
 if $z $x else $y = if $z $x else $y
-Error=Error
-nil[$x]=Error
+
+nil[$x] = nil
 $a[$x] = $a[$x]
+
 len(nil)=0
 len(cons($a,$b))=1+len($b)
 len($a)=len($a)
+
 cons($a,$b)[0]=$a
 cons($a,$b)[$x]=if $x>0 $b[$x-1] else cons($a,$b)[$x+len(cons($a,$b))]
-fibs(0)=()
-fibs($x)=if $x<0 nil else cons(fib($x), fibs($x-1))
+
 nextfib(()) = (1,1)
 nextfib($a)=nextfib($a)
 nextfib(cons($a,cons($b,$c))) = cons($a+$b,cons($a,cons($b,$c)))
-fibsx(0) = ()
-fibsx($x)=nextfib(fibsx($x-1))
+fibs(0) = ()
+fibs($x)=nextfib(fibs($x-1))
+
 inf = cons(1, inf)
 
-fibsx(10)
+fibs(10)
 inf[4]
-fibs(5)
+if 2>1 1 else fib(50)

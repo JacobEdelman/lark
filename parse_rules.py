@@ -78,4 +78,4 @@ def post_parse_rules(sorted_rules):
     # for form,out in fin_rules:
     #
     #     fin_rules.append((, parse_expr.parse_expr(out, unambigous_rules)))
-    return parse_with_rules(rules, unambigous_rules), pre_parse_rules(unambigous_rules)
+    return parse_with_rules(rules, unambigous_rules), unambigous_rules

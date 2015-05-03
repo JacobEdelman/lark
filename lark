@@ -11,8 +11,9 @@ Fail = lark_utils.Fail
 
 import lark_int, lark_list
 
-
+exprs = []
 def exe_text(x): #BAD
+    global exprs
     rules = []
     to_eval = []
     for i in x.split("\n"):

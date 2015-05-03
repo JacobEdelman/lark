@@ -2,7 +2,7 @@ import terms
 from lark_utils import Fail
 import random
 def parse_expr(x,exprs):
-    # umm... ordering?
+    
 
     #(problem with int_wild?)
     #Good way to do it (with memoizing (exprs to tuple)):

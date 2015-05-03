@@ -18,7 +18,7 @@ def str_to_parts(x): # not good, : troubles
         elif wild:
             if i == "$" and rets[-1] == "":
                 rets[-1]+=i
-            elif i in string.ascii_letters+string.digits:
+            elif i in string.ascii_letters or (rets[-1]!="$" and i in string.digits+"_"):
                 rets[-1]+=i
             else:
                 rets.append(i)
@@ -28,6 +28,10 @@ def str_to_parts(x): # not good, : troubles
                 rets.append(i)
                 wild = True
             elif rets[-1] == "":
+                rets[-1]+=i
+            elif i in string.ascii_letters+string.digits+"_" and rets[-1][0] in string.ascii_letters:
+                rets[-1]+=i
+            elif i in string.digits and rets[-1][0] in string.digits:
                 rets[-1]+=i
             else:
                 rets.append(i)
