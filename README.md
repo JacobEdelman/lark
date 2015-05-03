@@ -1,14 +1,12 @@
 # Lark
-0.3.0
+0.3.1
 A programming language with mutable syntax.
 ______
-0.3.0: The actually working update!
+0.3.1: The actually working update!
 
-Everything here is out of date. Will be fixed soon.
 ## Use
 Lark is used in the following manner:
 `./lark [space seperated file names to execute]`
-Files will be executed sequentially in the same enviroment.
 More info on use will be added shortly.
 
 ## Status
@@ -18,7 +16,7 @@ Lark's name will be changing soon as it has been discovered there was already a 
 
 
 ## Todo
-- Fix readme
+- Fix Todo
 
 ## Vision
 The end goal, the vision, of lark is to create a world where lark is the only accepted programming language and is mandatory teaching in all schools.
@@ -44,4 +42,5 @@ Jacob Edelman is the leader and creator of Lark. Pull requests are welcome.
 - Version 0.0.1: Core code for certain sections is done.
 - Version 0.0.2: Core code is finished. It should be possible to write programs.
 - Version 0.0.3: Basic programs can be created. Multiplication was created in lark.
-- Version 0.1.0: Old version of lark was completely trashed and rewritten twice. The newest version is in python.
+- Version 0.3.0: Old version of lark was completely trashed and rewritten three times. I think. I lost count. The newest version is in python.
+- Version 0.3.1: Lark is made fully usable and functioning.
