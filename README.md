@@ -7,7 +7,7 @@ ______
 Everything here is out of date. Will be fixed soon.
 ## Use
 Lark is used in the following manner:
-`./lark.py [space seperated file names to execute]`
+`./lark [space seperated file names to execute]`
 Files will be executed sequentially in the same enviroment.
 More info on use will be added shortly.
 
@@ -36,6 +36,7 @@ Jacob Edelman is the leader and creator of Lark. Pull requests are welcome.
 -  _"As far as I'm concerned, self-mutate is synonymous with self-mutilate in terms of a programming language's capabilities."_ - Aaron Weiss on Lark's mutable syntax.
 
 ## History:
+
 
 - Version 0.0.0: Pre-Usable, mostly a rough draft of core code.
 - Version 0.0.1: Core code for certain sections is done.
