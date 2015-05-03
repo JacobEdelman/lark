@@ -27,4 +27,6 @@ fibsx(0) = ()
 fibsx($x)=nextfib(fibsx($x-1))
 inf = cons(1, inf)
 
-fibsx(5)
+fibsx(10)
+inf[4]
+fibs(5)
