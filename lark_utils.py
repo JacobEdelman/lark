@@ -15,6 +15,8 @@ class prim_object:
 def flatten(x):
     if type(x)==str:
         return x
+    if hasattr(x,"val"):
+        return str(x.val)
     try:
         return "".join(map(flatten,x))
     except:

@@ -1,17 +1,24 @@
 import terms
 from lark_utils import Fail
+import random
 def parse_expr(x,exprs):
+    # umm... ordering?
+
     #(problem with int_wild?)
     #Good way to do it (with memoizing (exprs to tuple)):
     # split in halves,
     # for each rule, split the rule in half and try it on each part?
 
+    if isinstance(x,terms.wild): #SHOULD BE FINE
+        return x
 
-    # if isinstance(x,terms.wild):
-    #     return x
+
     if len(x) == 1:
+        #ehhh?
         if isinstance(x[0],terms.expr):
             return x[0]
+
+
     done = [x]
     strings = [((i,),x) for i in range(len(exprs))]
     while strings:

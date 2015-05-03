@@ -30,7 +30,7 @@ class list_pattern(pattern_wild):
          self.name = name
 
 
-list_cast_rule = (seq([list_pattern("x")]), seq([list_pattern("x")]))
+list_cast_rule = (list_pattern("x"), list_pattern("x"))
 gen_list_rules = to_rules("""nil=nil
 cons($x,$y)=cons($x,$y)""")
 base_list_rules = [list_cast_rule]

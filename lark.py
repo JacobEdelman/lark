@@ -28,11 +28,18 @@ def exe_text(x): #BAD
             to_eval.append(i)
     exprs = lark_int.int_rules + lark_list.list_rules
     exprs += map(lexer.to_rule,rules)
-    exprs = parse_rules.parse_rules(exprs)
+    exprs, parser_exprs = parse_rules.parse_rules(exprs)
+    exprs.reverse()
+
+    print "Rules Compiled"
+    compiled_parts = []
     for i in to_eval:
         i = i.strip()
         if i!="":
-            print lark_utils.flatten(parse_expr.parse_expr(lexer.lex(i), exprs).exe(exprs))
+            compiled_parts.append(parse_expr.parse_expr(lexer.lex(i), parser_exprs))
+    print "Expressions Compiled"
+    for i in compiled_parts:
+        print lark_utils.flatten(i.exe(exprs))
 
 
 

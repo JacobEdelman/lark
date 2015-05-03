@@ -7,7 +7,6 @@ nil+nil = nil
 cons($x, $y)+$z= cons($x, $y+$z)
 True = True
 False = False
-#$X = even the most needed things are here, true and false are needed for bools
 if True $x else $y = $x
 if False $x else $y = $y
 if $z $x else $y = if $z $x else $y
@@ -19,6 +18,13 @@ len(cons($a,$b))=1+len($b)
 len($a)=len($a)
 cons($a,$b)[0]=$a
 cons($a,$b)[$x]=if $x>0 $b[$x-1] else cons($a,$b)[$x+len(cons($a,$b))]
+fibs(0)=()
+fibs($x)=if $x<0 nil else cons(fib($x), fibs($x-1))
+nextfib(()) = (1,1)
+nextfib($a)=nextfib($a)
+nextfib(cons($a,cons($b,$c))) = cons($a+$b,cons($a,cons($b,$c)))
+fibsx(0) = ()
+fibsx($x)=nextfib(fibsx($x-1))
+inf = cons(1, inf)
 
-if 2>1 fib(10) else fib(100)
-(1,2,3)[0]
+fibsx(5)
