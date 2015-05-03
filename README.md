@@ -35,7 +35,7 @@ Jacob Edelman is the leader and creator of Lark. Pull requests are welcome.
 
 -  _"As far as I'm concerned, self-mutate is synonymous with self-mutilate in terms of a programming language's capabilities."_ - Aaron Weiss on Lark's mutable syntax.
 
-- _"Language appears to have no use to anyone. Please consider fixing this in the next update."_ - z3t in a Lark issue. 
+- _"Language appears to have no use to anyone. Please consider fixing this in the next update."_ - On Github by z3t in a Lark issue. 
 
 ## History:
 
