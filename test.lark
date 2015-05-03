@@ -32,8 +32,10 @@ nextfib(cons($a,cons($b,$c))) = cons($a+$b,cons($a,cons($b,$c)))
 fibs(0) = ()
 fibs($x)=nextfib(fibs($x-1))
 
-inf = cons(1, inf)
+fibs_after_nth($x) = cons(fib($x), fibs_after_nth($x+1))
+infini_fibs = fibs_after_nth(1)
+
 
 fibs(10)
-inf[4]
+infini_fibs[4]
 if 2>1 1 else fib(50)
