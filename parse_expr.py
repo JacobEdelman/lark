@@ -2,9 +2,6 @@ import terms
 from lark_utils import Fail
 import random
 def parse_expr(x,exprs):
-    exprs = [i for i in exprs]
-    random.shuffle(exprs)
-
     #(problem with int_wild?)
     #Good way to do it (with memoizing (exprs to tuple)):
     # split in halves,
