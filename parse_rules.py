@@ -19,17 +19,14 @@ def pre_parse_rules(raw_rules):
 
     return rules
 
-def parse_with_rules(raw_rules, parser_rules):
+def parse_outs_with_rules(raw_rules, parser_rules):
     parse_with =  map(lambda i:(i[0],i[0]),parser_rules)
     rules = []
     for current in raw_rules: # this reverses order
         trying_form, trying_out = current
-        attempt_form = parse_expr.parse_expr(trying_form,parse_with) #include raw forms instead?
         attempt_out = parse_expr.parse_expr(trying_out, parse_with)
         final_form = trying_form
         final_out = trying_out
-        if attempt_form != Fail:
-            final_form = attempt_form
         if attempt_out != Fail:
             final_out = attempt_out
         rules.append((final_form, final_out)) # this
@@ -78,4 +75,4 @@ def post_parse_rules(sorted_rules):
     # for form,out in fin_rules:
     #
     #     fin_rules.append((, parse_expr.parse_expr(out, unambigous_rules)))
-    return parse_with_rules(rules, unambigous_rules), unambigous_rules
+    return parse_outs_with_rules(rules, unambigous_rules), unambigous_rules
