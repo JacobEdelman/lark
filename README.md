@@ -11,7 +11,7 @@ More info on use will be added shortly.
 
 ## Status
 
-Lark's name will be changing soon as it has been discovered there was already a programming language named Lark. Go figure. Lark is in very heavy development. As of now the very core of the language has been built. This is the part that does parsing and can deal with the mutable syntax. The current task it to deal with adding the basic language executer on top of which components can be added. As of now it seems that lark is somewhat usable, although not necessarily useful. Examples will be added.
+Lark is in very heavy development. As of now the very core of the language has been built. This is the part that does parsing and can deal with the mutable syntax. The current task it to deal with adding the basic language executer on top of which components can be added. As of now it seems that lark is somewhat usable, although not necessarily useful. Examples will be added.
 
 
 
