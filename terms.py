@@ -15,7 +15,7 @@ class lit:
         return self
 
     def __repr__(self):
-        return self.val
+        return `self.val`
     def lazy_exe(self,exprs):
         return self
     def exe(self,exprs):
@@ -53,7 +53,6 @@ class expr:
                     return ret
 
         # what if I just assume its a normal form then??? that should work... yeah
-        print self
         assert("I should not be here" == False) # bad style?
     def exe(self, exprs):
         return self.lazy_exe(exprs)
@@ -92,20 +91,16 @@ class wild(expr):
 
 class seq(tuple, expr):
     def exe_parts(self, exprs):
+
         return seq([i.exe(exprs) for i in self]) # should this be lazy_exe??nah
     def lazy_parts_exe(self, x, exprs): # I think this works?
         if isinstance(x, seq) and len(x) == len(self): # this should report back
-            ret = ()
-            for my_term, input_term in zip(self, x):
-
-                if  not my_term.lazy:
-                    ret+=(input_term.lazy_exe(exprs),)
-                else:
-                    ret+=(input_term,)
-            return seq(ret)
+            return seq(input_term if my_term.lazy else input_term.lazy_exe(exprs)
+                        for my_term, input_term in zip(self, x))
         else:
             return x
     def exe(self, exprs):
+
         #OKAY?
         ret = self.lazy_exe(exprs).exe_parts(exprs)
         ret.normal = True

@@ -96,6 +96,14 @@ class equal_func(builtin_func): # WILL NOT WORK
     def __repr__(self):
         return self.x.__repr__()+"=="+self.y.__repr__()
 
+class mod_func(builtin_func): # WILL NOT WORK
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.func = lambda matched_dict: lark_int(matched_dict[self.x]%matched_dict[self.y])
+    def __repr__(self):
+        return self.x.__repr__()+"%"+self.y.__repr__()
+
 int_cast_rule = (int_pattern("x"), int_pattern("x")) # so...
 # int_wild_rule = (seq([int_wild("x")]), seq([int_wild("x")]))
 # int_cast_rule2 = (int_pattern("x"), int_pattern("x"))
@@ -103,10 +111,16 @@ int_addition_rule = (seq([int_wild("x"), lit("+"), int_wild("y")]), addition_fun
 int_subtraction_rule = (seq([int_wild("x"), lit("-"), int_wild("y")]), subtraction_func("x", "y"))
 int_less_than_rule = (seq([int_wild("x"), lit("<"), int_wild("y")]), less_than_func("x", "y"))
 int_more_than_rule = (seq([int_wild("x"), lit(">"), int_wild("y")]), more_than_func("x", "y"))
-base_int_rules = [int_cast_rule, int_addition_rule, int_subtraction_rule,
-    int_less_than_rule, int_more_than_rule]
-gen_int_rules = to_rules("""$x+$y=$x+$y
-$x<$y=$x<$y
-$x>$y=$x>$y
-$x-$y=$x-$y""") # equal rule needed
+int_equals_rule = (seq([int_wild("x"), lit("is"), int_wild("y")]), equal_func("x", "y"))
+int_mod_rule = (seq([int_wild("x"), lit("%"), int_wild("y")]), mod_func("x", "y"))
+base_int_rules = [int_cast_rule, int_equals_rule, int_addition_rule, int_subtraction_rule,
+    int_less_than_rule, int_more_than_rule, int_mod_rule]
+
+gen_int_rules = to_rules("""
+$x is $y = $x is $y
+$x + $y = $x + $y
+$x < $y = $x < $y
+$x > $y = $x > $y
+$x - $y = $x - $y
+$x % $y = $x % $y""")
 int_rules = base_int_rules + gen_int_rules

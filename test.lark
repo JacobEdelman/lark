@@ -3,6 +3,8 @@ fib(1)=1
 fib(2)=1
 
 ($x)=$x
+{$a} = $a
+$a is $b = $a is $b
 
 nil+cons($x, $y)=cons($x, $y)
 nil+nil = nil
@@ -11,31 +13,76 @@ cons($x, $y)+$z= cons($x, $y+$z)
 
 True = True
 False = False
+not $a = not $a
+not True = False
+not False = True
+$a and $b = False
+True and True = True
 
 if True $x else $y = $x
 if False $x else $y = $y
 if $z $x else $y = if $z $x else $y
 
+reverse(nil)=nil
+reverse(cons($a,$b))=reverse($b)+[$a]
+
 nil[$x] = nil
 $a[$x] = $a[$x]
-
-len(nil)=0
-len(cons($a,$b))=1+len($b)
-len($a)=len($a)
-
 cons($a,$b)[0]=$a
-cons($a,$b)[$x]=if $x>0 $b[$x-1] else cons($a,$b)[$x+len(cons($a,$b))]
+cons($a,$b)[$x]=if $x>0 $b[$x-1] else cons($a, $b)[$x % len(cons($a, $b))]
 
-nextfib(()) = (1,1)
+$a[:$x] = $a[:$x]
+nil[:$x]= nil
+cons($a, $b)[:0]= nil
+cons($a, $b)[:$x] = if $x>0 cons($a,$b[:$x-1]) else cons($a, $b)[:$x % len(cons($a, $b))]
+
+$a[$x:] = $a[$x:]
+nil[$x:] = nil
+$a[0:] = $a
+cons($a,$b)[$x:] = if $x>0 $b[$x-1:] else cons($a, $b)[$x % len(cons($a, $b)):]
+
+$a[$x:$y]=$a[:$y][$x:]
+
+len($a)=len($a)
+len(nil) = 0
+len(cons($a, $b)) = 1+len($b)
+
+nil is nil = True
+nil is $a = False
+char($a) is char($b) = $a is $b
+cons($a, $b) is cons($c, $d) = ($a is $c) and ($b is $d)
+str($a) is str($b) = $a is $b
+str($a)[$b]=str($a[$b])
+len(str($a)) = len($a)
+str($a)[:$b]=str($a[:$b])
+str($a)[$b:]=str($a[$b:])
+str($a)[$x:$y]=str($a[$x:$y])
+
+nextfib(()) = cons(1, nil)
+nextfib(cons(1, nil)) = (1,1)
 nextfib($a)=nextfib($a)
 nextfib(cons($a,cons($b,$c))) = cons($a+$b,cons($a,cons($b,$c)))
-fibs(0) = ()
+fibs(1) = cons(1, nil)
+fibs(2) = (1,1)
 fibs($x)=nextfib(fibs($x-1))
 
-fibs_after_nth($x) = cons(fib($x), fibs_after_nth($x+1))
+fibs_after_nth($x) = cons(fibs($x)[0], fibs_after_nth($x+1))
 infini_fibs = fibs_after_nth(1)
 
 
-fibs(10)
-infini_fibs[4]
-if 2>1 1 else fib(50)
+
+
+FizzBuzz = FizzBuzz
+Fizz = Fizz
+Buzz = Buzz
+fizz_buzz_func($x) = if $x%15 is 0 {
+    FizzBuzz
+  } else if $x%5 is 0 {
+    Buzz
+  } else if $x%3 is 0 {
+    Fizz
+  } else {$x}
+
+fizz_buzz_list($x) = cons(fizz_buzz_func($x), fizz_buzz_list($x+1))
+fizz_buzz_all = fizz_buzz_list(1)
+main = "ab\ncd{\"adsa" is "ab\ncd{\"asdsa" 

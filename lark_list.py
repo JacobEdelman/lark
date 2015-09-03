@@ -2,7 +2,7 @@ from lark_utils import Fail
 from terms import builtin_func, pattern_wild, expr, wild, seq, lit
 from lexer import to_rules, lex
 import string
-
+# add in one item list
 def list_pattern_func(x):
     if isinstance(x,lit) and x.val == "()": # shouldn't happen..
         return lex("nil")
@@ -32,6 +32,6 @@ class list_pattern(pattern_wild):
 
 list_cast_rule = (list_pattern("x"), list_pattern("x"))
 gen_list_rules = to_rules("""nil=nil
-cons($x,$y)=cons($x,$y)""")
+cons($a,$b)=cons($a,$b)""")
 base_list_rules = [list_cast_rule]
 list_rules = base_list_rules + gen_list_rules
