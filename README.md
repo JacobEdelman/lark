@@ -17,6 +17,7 @@ Lark is in very heavy development. As of now the very core of the language has b
 - Improve parsing
 - Reorder readme
 - Add to "Use" section of the readme
+- Add print and to_string as functions
 
 ## Vision
 The end goal, the vision, of lark is to create a world where lark is the only accepted programming language and is mandatory teaching in all schools. A realistic goal is ridiculous since than when you someday finish it you'll either be completely done with everything (which is boring and should never happen) or you'll need to find a new goal, meaning your original one wasn't your overarching vision in the first place.
