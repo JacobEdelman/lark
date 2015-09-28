@@ -53,36 +53,18 @@ char($a) is char($b) = $a is $b
 cons($a, $b) is cons($c, $d) = ($a is $c) and ($b is $d)
 str($a) is str($b) = $a is $b
 str($a)[$b]=str($a[$b])
+str($a) + str($b) = str($a + $b)
 len(str($a)) = len($a)
 str($a)[:$b]=str($a[:$b])
 str($a)[$b:]=str($a[$b:])
 str($a)[$x:$y]=str($a[$x:$y])
 
-nextfib(()) = cons(1, nil)
-nextfib(cons(1, nil)) = (1,1)
-nextfib($a)=nextfib($a)
-nextfib(cons($a,cons($b,$c))) = cons($a+$b,cons($a,cons($b,$c)))
-fibs(1) = cons(1, nil)
-fibs(2) = (1,1)
-fibs($x)=nextfib(fibs($x-1))
-
-fibs_after_nth($x) = cons(fibs($x)[0], fibs_after_nth($x+1))
-infini_fibs = fibs_after_nth(1)
-
-
-
-
-FizzBuzz = FizzBuzz
-Fizz = Fizz
-Buzz = Buzz
-fizz_buzz_func($x) = if $x%15 is 0 {
-    FizzBuzz
-  } else if $x%5 is 0 {
-    Buzz
-  } else if $x%3 is 0 {
-    Fizz
-  } else {$x}
-
-fizz_buzz_list($x) = cons(fizz_buzz_func($x), fizz_buzz_list($x+1))
-fizz_buzz_all = fizz_buzz_list(1)
-main = "ab\ncd{\"adsa" is "ab\ncd{\"asdsa" 
+sock = socket()
+nick = "LarkBot"
+host ="irc.pdgn.co"
+port = 6697
+main = {sock.open "irc.pdgn.co" 6697
+        sock.send "NICK " + nick +"\r\n"
+        sock.send "USER " + nick + " "+host+" bla :" + nick + "%s\r\n"
+        sock.recv 1024
+      }

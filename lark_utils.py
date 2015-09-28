@@ -10,6 +10,10 @@ class prim_object:
         if id(equ) == id(self):
             return True
         return False
+    def __init__(self, name):
+        self.name = name
+    def __repr__(self):
+        return self.name
 #lets make all the Fails the same
 
 def flatten(x):
@@ -21,4 +25,13 @@ def flatten(x):
         return "".join(map(flatten,x))
     except:
         return str(x)
-Fail = prim_object()
+def flatten2(x):
+    if type(x)==str:
+        return x
+    if hasattr(x,"val"):
+        return str(x.val)
+    try:
+        return "{"+" ".join(map(flatten2,x))+"}"
+    except:
+        return str(x)
+Fail = prim_object("Fail")

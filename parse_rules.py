@@ -1,5 +1,5 @@
 import parse_expr
-from lark_utils import Fail
+from lark_utils import Fail, flatten2
 def parse_forms(raw_rules, parser_rules = None):
     if parser_rules == None:
         parser_rules = raw_rules
@@ -37,7 +37,7 @@ def order_rules(base_rules):
         rules = [i for i in base_rules] # keeps base_rules order
         for i in rules:
             current= rules.pop()
-            if not any((current[0].match(i[0]) != Fail and i[0].match(current[0]) == Fail) for i in rules):
+            if all((current[0].match(r[0]) == Fail or r[0].match(current[0]) != Fail) for r in rules):
                 ret.append(current)
                 base_rules = filter(lambda i: i!=current, base_rules)
                 break
@@ -80,4 +80,4 @@ def post_parse_rules(sorted_rules):
     return parse_outs(rules, unambigous_rules), unambigous_rules
 
 def parse_rules(raw_rules):
-    return post_parse_rules(order_rules(parse_forms(raw_rules)))
+    return post_parse_rules(parse_forms(order_rules(raw_rules)))

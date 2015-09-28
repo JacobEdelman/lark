@@ -7,9 +7,10 @@ import parse_expr
 import sys
 
 
+# the current problem comes from the ordering... yeah (some thigns are getting parsed too thouroughly too early)
 Fail = lark_utils.Fail
 
-import lark_int, lark_list, lark_str
+import lark_int, lark_list, lark_str, lark_socket
 
 exprs = []
 def exe_text(x): #BAD
@@ -17,7 +18,8 @@ def exe_text(x): #BAD
     rules = []
     to_eval = []
 
-    exprs = lark_int.int_rules + lark_list.list_rules + lark_str.str_rules
+    exprs = lark_int.int_rules + lark_list.list_rules + lark_str.str_rules + \
+        lark_socket.socket_rules
     exprs += lexer.to_rules(x)
     exprs, parser_exprs = parse_rules.parse_rules(exprs)
     exprs.reverse()
@@ -29,13 +31,17 @@ def exe_text(x): #BAD
         if i!="":
             compiled_parts.append(parse_expr.parse_expr(lexer.lex(i), parser_exprs))
     print "Expressions Compiled"
+    # for x,y in exprs:
+    #     print lark_utils.flatten2(x), lark_utils.flatten2(y)
     for i in compiled_parts:
-        print lark_utils.flatten(i.exe(exprs))
+        print lark_str.str_val(i.exe(exprs))
 
 
 
 
-
+import cProfile
+def main_test():
+    cProfile.run('main()')
 def main():
     if len(sys.argv) == 1:
         print "At least one argument needed"
@@ -46,6 +52,8 @@ def main():
             text += opened_file.read()+"\n"
             opened_file.close()
         exe_text(text)
+
+
 
 if __name__ == "__main__":
     main()

@@ -13,6 +13,8 @@ class lark_int(int, expr):
     def __repr__(self):
         # super?
         return str(int(self))
+    def parse(self, x, exprs):
+        return self.match(x)
 
 
 class int_wild(wild): # just matches ints (subs for any...)
@@ -27,8 +29,14 @@ class int_wild(wild): # just matches ints (subs for any...)
             return Fail
     def __repr__(self):
         return "int:"+self.name
+    def parse(self, x, exprs): #NEEDED?
+        attempt = self.match(x)
+        if attempt == Fail:
+            return Fail
 
-def int_pattern_func(x):
+        return attempt[self.name]
+
+def int_pattern_func(x, exprs = None):
     # this needs to bundle things methinks
     if (isinstance(x, seq) and all(isinstance(i, lit) for i in x)):
         # so... its getting passed a sequence...
@@ -52,6 +60,15 @@ class int_pattern(pattern_wild):
     def __init__(self, name):
          self.pattern = int_pattern_func
          self.name = name
+    def __repr__(self):
+        return "int_pattern:" + str(self.name)
+    memed = {}
+    def parse(self, x, exprs):
+        memed = self.memed
+        if x in memed:
+            return memed[x]
+        memed[x] = self.pattern(x, exprs )
+        return memed[x]
 
 
 
