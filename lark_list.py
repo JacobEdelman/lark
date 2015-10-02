@@ -33,12 +33,11 @@ def list_pattern_func(x, exprs = None):
                     ret = seq(lex("cons(")+seq([i])+lex(",")+seq([ret])+lex(")"))
                     continue
             else:
-                attempt = wild("x").parse(i, exprs)
+                attempt = wild("x").parse(seq([i]), exprs)
                 if attempt != Fail:
                     ret = seq(lex("cons(")+seq([attempt])+lex(",")+seq([ret])+lex(")"))
                     continue
             return Fail
-
         return ret
     else:
         return Fail

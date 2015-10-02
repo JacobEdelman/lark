@@ -72,11 +72,13 @@ class socket_pattern(pattern_wild):
 
 
 class open_socket_func(builtin_func):
+    lazys = ["callback"]
     def __init__(self, socket, host, port, callback):
         self.socket = socket
         self.host = host
         self.port = port
         self.callback = callback
+
         def func_open_socket(matched_dict):
             sock = matched_dict[self.socket].socket
             host = str_val(matched_dict[self.host])
@@ -90,6 +92,7 @@ class open_socket_func(builtin_func):
             self.port.__repr__() + " " + self.callback.__repr__()
 
 class recv_socket_func(builtin_func):
+
     def __init__(self, socket, num):
         self.socket = socket
         self.num = num
@@ -106,6 +109,7 @@ class recv_socket_func(builtin_func):
         return self.socket.__repr__() + ".recv " + self.num.__repr__()
 
 class send_socket_func(builtin_func):
+    lazys = ["callback"]
     def __init__(self, socket, msg, callback):
         self.socket = socket
         self.msg = msg

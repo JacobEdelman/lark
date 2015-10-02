@@ -1,7 +1,3 @@
-fib($x)=fib($x-1)+fib($x-2)
-fib(1)=1
-fib(2)=1
-
 ($x)=$x
 {$a} = $a
 $a is $b = $a is $b
@@ -22,7 +18,6 @@ True and True = True
 if True $x else $y = $x
 if False $x else $y = $y
 if $z $x else $y = if $z $x else $y
-
 
 nil[$x] = nil
 $a[$x] = $a[$x]
@@ -47,22 +42,22 @@ len(cons($a, $b)) = 1+len($b)
 
 nil is nil = True
 nil is $a = False
-char($a) is char($b) = $a is $b
 cons($a, $b) is cons($c, $d) = ($a is $c) and ($b is $d)
-str($a) is str($b) = $a is $b
-str($a)[$b]=str($a[$b])
-str($a) + str($b) = str($a + $b)
-len(str($a)) = len($a)
-str($a)[:$b]=str($a[:$b])
-str($a)[$b:]=str($a[$b:])
-str($a)[$x:$y]=str($a[$x:$y])
 
-sock = socket()
-nick = "LarkBot"
-host ="irc.pdgn.co"
-port = 6697
-main = {sock.open "irc.pdgn.co" 6697
-        sock.send ("NICK " + nick +"\r\n")
-        (sock.send ("USER " + nick + " "+host+" bla :" + nick + "\r\n")
-        ((sock.recv 1024)
-      }
+$a :: $b = cons($a, $b)
+
+error = error
+map_pull (($a :: $b) :: $x) = $a :: (map_pull $x)
+
+map_pull $a = ()
+
+map_take (($a :: $b) :: $x) = $b :: (map_pull $x)
+map_take $a = nil
+
+transpose $a = (map_pull $a) :: (transpose map_take $a)
+transpose nil = ()
+
+
+
+
+main = map_pull ((1,2),(3,4))

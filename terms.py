@@ -73,7 +73,9 @@ class expr:
             attempt = input_form.match(current)
             tabs -= 1
             if attempt != Fail:
+
                 attempt = output_form.sub(attempt)
+                print current, attempt
                 if attempt == self:
                     attempt.normal = True
                     return attempt
@@ -252,7 +254,7 @@ class seq(tuple, expr):
                 right_half = seq(self[midpoint:])
                 first_lit = self[midpoint]
                 for i in range(startpoint, endpoint):
-                    if i + 1 < len(x) and not first_lit.match(x[i + 1]):
+                    if i < len(x) and first_lit.match(x[i]) == Fail:
                         continue
                     right_x = seq(x[i:])
                     right_attempt = right_half.parse(right_x, exprs)
@@ -268,17 +270,15 @@ class seq(tuple, expr):
 
 
 class builtin_func(wild):
-    lazy = False
-    normal = False
-
+    lazys = []
     def __init__(self, func):
         self.func = func
         self.matched_dict = {}
 
     def lazy_exe(self, exprs):
         for k in self.matched_dict:
-            self.matched_dict[k] = self.matched_dict[k].lazy_exe(exprs)
-            print flatten(k), flatten(self.matched_dict[k])
+            if k not in self.lazys:
+                self.matched_dict[k] = self.matched_dict[k].exe(exprs)
 
         return self.func(self.matched_dict)
 

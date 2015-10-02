@@ -48,7 +48,6 @@ def str_val(x):
         isinstance(x[2], seq) and isinstance(x[3], lit) and x[3].val == ")":
         return str_val_helper(x[2])
     else:
-        print "WATT"
         return flatten(x)
 
 def str_val_helper(x):
