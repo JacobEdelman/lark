@@ -6,4 +6,5 @@ inside_help (Tree $k $v $t1 $t2) $k2 $c = if ($k is $k2) then True else {
 inside_help $misc $k $c = $c
 inside $t $k = inside_help $t $k False
 
-main = False
+
+main = inside (Tree "a" 1 Leaf Leaf) "a"
