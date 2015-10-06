@@ -1,0 +1,58 @@
+
+($x) = $x
+{$a} = $a
+$a is $b = $a is $b
+
+nil+cons($x, $y) =cons($x, $y)
+nil+nil = nil
+
+cons($x, $y)+$z = cons($x, $y+$z)
+
+
+True = True
+False = False
+not $a = not $a
+not True = False
+not False = True
+$a and $b = False
+True and True = True
+str(True) = "True"
+str(False) = "False"
+
+if True then $x else $y = $x
+if False then $x else $y = $y
+if $z then $x else $y = if $z then $x else $y
+
+
+nil[$x] = nil
+$a[$x] = $a[$x]
+cons($a,$b)[0] = $a
+cons($a,$b)[$x] = if $x>0 then $b[$x-1] else cons($a, $b)[$x % len(cons($a, $b))]
+
+$a[:$x] = $a[:$x]
+nil[:$x]= nil
+cons($a, $b)[:0]= nil
+cons($a, $b)[:$x] = if $x>0 then cons($a,$b[:$x-1]) else cons($a, $b)[:$x % len(cons($a, $b))]
+
+$a[$x:] = $a[$x:]
+nil[$x:] = nil
+$a[0:] = $a
+cons($a,$b)[$x:] = if $x>0 then $b[$x-1:] else cons($a, $b)[$x % len(cons($a, $b)):]
+
+$a[$x:$y] = $a[:$y][$x:]
+
+len($a) = len($a)
+len(nil) = 0
+len(cons($a, $b)) = 1 + len($b)
+
+nil is nil = True
+nil is $a = False
+char($a) is char($b) = $a is $b
+cons($a, $b) is cons($c, $d) = ($a is $c) and ($b is $d)
+str($a) is str($b) = $a is $b
+str($a)[$b]=str($a[$b])
+str($a) + str($b) = str($a + $b)
+len(str($a)) = len($a)
+str($a)[:$b] = str($a[:$b])
+str($a)[$b:] = str($a[$b:])
+str($a)[$x:$y] = str($a[$x:$y])

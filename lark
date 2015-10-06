@@ -34,7 +34,8 @@ def exe_text(x): #BAD
     # for x,y in exprs:
     #     print lark_utils.flatten2(x), lark_utils.flatten2(y)
     for i in compiled_parts:
-        print lark_str.str_val(i.exe(exprs))
+        to_exe = terms.seq(lexer.lex("str(") + terms.seq((i,)) + lexer.lex(")"))
+        print lark_str.str_val(to_exe.exe(exprs))
 
 
 
@@ -46,10 +47,12 @@ def main():
     if len(sys.argv) == 1:
         print "At least one argument needed"
     else:
-        text = ""
+        stdlib_file = open("stdlib.lark")
+        text = stdlib_file.read() + "\n"
+        stdlib_file.close()
         for f in sys.argv[1:]:
             opened_file = open(f)
-            text += opened_file.read()+"\n"
+            text += opened_file.read() + "\n"
             opened_file.close()
         exe_text(text)
 

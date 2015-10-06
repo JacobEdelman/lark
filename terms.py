@@ -75,7 +75,7 @@ class expr:
             if attempt != Fail:
 
                 attempt = output_form.sub(attempt)
-                print current, attempt
+                # print flatten2(current), flatten2(attempt)
                 if attempt == self:
                     attempt.normal = True
                     return attempt
@@ -198,6 +198,7 @@ class seq(tuple, expr):
         return self.memed_midpoint
 
     def parse(self, x, exprs, top = 0):
+
         if (self, x) in memed_seq:
             return memed_seq[self, x]
         memed_seq[self, x] = Fail
@@ -226,11 +227,13 @@ class seq(tuple, expr):
                     right_half = seq(self[midpoint:])
                     right_x = seq(x[i:])
                     right_attempt = right_half.parse(right_x, exprs)
+
                     if right_attempt != Fail:
                         ret = seq(left_attempt + right_attempt)
                         memed_seq[self, x] = ret
                         return ret
             elif isinstance(self[-1], lit):
+
                 if x[-1].parse(self[-1], exprs) == Fail:
                     return Fail
                 midpoint = len(self) - 1
@@ -249,12 +252,13 @@ class seq(tuple, expr):
             else:
                 midpoint = self.get_midpoint()
                 startpoint = midpoint
+
                 endpoint = len(x) - len(self) / 2 + 1
                 left_half = seq(self[:midpoint])
                 right_half = seq(self[midpoint:])
                 first_lit = self[midpoint]
                 for i in range(startpoint, endpoint):
-                    if i < len(x) and first_lit.match(x[i]) == Fail:
+                    if i < len(x) and self.lits() and first_lit.match(x[i]) == Fail:
                         continue
                     right_x = seq(x[i:])
                     right_attempt = right_half.parse(right_x, exprs)

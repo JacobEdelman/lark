@@ -22,7 +22,7 @@ def flatten(x):
     if hasattr(x,"val"):
         return str(x.val)
     try:
-        return "".join(map(flatten,x))
+        return " ".join(map(flatten,x))
     except:
         return str(x)
 def flatten2(x):

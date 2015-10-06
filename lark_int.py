@@ -1,6 +1,7 @@
 from lark_utils import Fail
 from terms import builtin_func, pattern_wild, expr, wild, seq, lit
 from lexer import to_rules, lex
+# from lark_str import to_lark_str
 import string
 class lark_int(int, expr):
     normal = True
@@ -120,6 +121,7 @@ class mod_func(builtin_func): # WILL NOT WORK
         self.func = lambda matched_dict: lark_int(matched_dict[self.x]%matched_dict[self.y])
     def __repr__(self):
         return self.x.__repr__()+"%"+self.y.__repr__()
+
 
 int_cast_rule = (int_pattern("x"), int_pattern("x")) # so...
 # int_wild_rule = (seq([int_wild("x")]), seq([int_wild("x")]))

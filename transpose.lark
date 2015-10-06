@@ -1,63 +1,9 @@
-($x)=$x
-{$a} = $a
-$a is $b = $a is $b
 
-nil+cons($x, $y)=cons($x, $y)
-nil+nil = nil
+Tree $k $v $t1 $t2 = Tree $k $v $t1 $t2
+Leaf = Leaf
+inside_help (Tree $k $v $t1 $t2) $k2 $c = if ($k is $k2) then True else {
+                                          inside_help $t1 $k2 (inside_help $t2 $k2 $c) }
+inside_help $misc $k $c = $c
+inside $t $k = inside_help $t $k False
 
-cons($x, $y)+$z= cons($x, $y+$z)
-
-True = True
-False = False
-not $a = not $a
-not True = False
-not False = True
-$a and $b = False
-True and True = True
-
-if True $x else $y = $x
-if False $x else $y = $y
-if $z $x else $y = if $z $x else $y
-
-nil[$x] = nil
-$a[$x] = $a[$x]
-cons($a,$b)[0]=$a
-cons($a,$b)[$x]=if $x>0 $b[$x-1] else cons($a, $b)[$x % len(cons($a, $b))]
-
-$a[:$x] = $a[:$x]
-nil[:$x]= nil
-cons($a, $b)[:0]= nil
-cons($a, $b)[:$x] = if $x>0 cons($a,$b[:$x-1]) else cons($a, $b)[:$x % len(cons($a, $b))]
-
-$a[$x:] = $a[$x:]
-nil[$x:] = nil
-$a[0:] = $a
-cons($a,$b)[$x:] = if $x>0 $b[$x-1:] else cons($a, $b)[$x % len(cons($a, $b)):]
-
-$a[$x:$y]=$a[:$y][$x:]
-
-len($a)=len($a)
-len(nil) = 0
-len(cons($a, $b)) = 1+len($b)
-
-nil is nil = True
-nil is $a = False
-cons($a, $b) is cons($c, $d) = ($a is $c) and ($b is $d)
-
-$a :: $b = cons($a, $b)
-
-error = error
-map_pull (($a :: $b) :: $x) = $a :: (map_pull $x)
-
-map_pull $a = ()
-
-map_take (($a :: $b) :: $x) = $b :: (map_pull $x)
-map_take $a = nil
-
-transpose $a = (map_pull $a) :: (transpose map_take $a)
-transpose nil = ()
-
-
-
-
-main = map_pull ((1,2),(3,4))
+main = False

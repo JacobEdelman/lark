@@ -1,5 +1,5 @@
 import socket
-from lark_str import str_val, str_pattern_func
+from lark_str import str_val, to_lark_str
 from lark_utils import Fail
 from lexer import to_rules, lex
 from terms import builtin_func, lit, wild, seq, expr, pattern_wild
@@ -100,9 +100,8 @@ class recv_socket_func(builtin_func):
             sock = matched_dict[self.socket].socket
             num = matched_dict[self.num]
             msg = sock.recv(num)
-            stred = '"'+`msg`[1:-1].replace('"','\\"')+'"'
             print "recieved", msg
-            return str_pattern_func(lex(stred))
+            return to_lark_str(msg)
         self.func = func_recv_socket
 
     def __repr__(self):
