@@ -3,58 +3,86 @@ A programming language with mutable syntax.
 ______
 0.3.3: The prototyped version.
 
-## Use
-Lark is used in the following manner: `python lark [space seperated file names
-to execute]` More info on use will be added shortly.
+## Vision
+Lark aims to be a language where syntax is fully mutable and all functions are defined simply as syntax mutations. This is similar to macros, but more powerful as a set of transformations (functions except with arbitrary syntax) is seen as a form of context-free grammar, and an algorithm similar to Earley parsing is used to parse the program. This is augmented by automatically handling interdependencies regardless of the order transformations are given in. 
 
 ## Status
 Lark is in very heavy development. As of now Lark can function fully and may be
 usable for small tasks. The initial goal of making a proof-of-concept is
-complete. Examples will be added soon.
+complete.
 
+## Use
+Lark is used in the following manner: `python lark [space seperated file names
+to execute]`
 
+## Examples
 
-## Todo
-- Fix Todo
-- Deal with curly brackets and equals signs in functions
-- Improve parsing
-- Reorder readme
-- Add to "Use" section of the readme
-- Deal with string conversion properly
-- Work on sockets
-- Add print function, figure out side effects
-- Fix list parsing
+### Hello world
+The main value of any program will be printed out so the hello world program is as follows:
+```
+main = "hello world"
+```
+This may be executed by calling `./lark [file name]`
 
-## Vision
-The end goal, the vision, of lark is to create a world where lark is the only
-accepted programming language and is mandatory teaching in all schools. A
-realistic goal is ridiculous since than when you someday finish it you'll either
-be completely done with everything (which is boring and should never happen) or
-you'll need to find a new goal, meaning your original one wasn't your
-overarching vision in the first place.
+### Boolean Logic
+The entire system of logic as it exists in lark is written in pure Lark and is defined as follows:
+```
+True = True
+False = False
+not $a = not $a
+not True = False
+not False = True
+$a and $b = False
+True and True = True
+```
+### If Statements
+If statements may then be added in the following manner:
+```
+if True then $x else $y = $x
+if False then $x else $y = $y
+if $z then $x else $y = if $z then $x else $y
+```
+Notably, Lark's laziness is put to use here as the portions of the if statement that it does not evaluate to will not be executed.
 
+### String and Tuple Manipulations
+String and tuple manipulations are similar to those in python:
+```
+"abc"[1:] is "bc"
+"de"[-1] is "e"
+(1,2)[0] is 1
+```
+
+### Fibonacci
+A simple but inefficient fibonacci function that is exponential time:
+```
+fib($x)=fib($x-1)+fib($x-2)
+fib(1)=1
+fib(2)=1
+main = fib(10)
+```
+
+### Better Fibonacci
+A more efficient fibonacci function that is linear time:
+```
+nextfib(()) = (1,1)
+nextfib($a)=nextfib($a)
+nextfib(cons($a,cons($b,$c))) = cons($a+$b,cons($a,cons($b,$c)))
+fibs(0) = ()
+fibs($x)=nextfib(fibs($x-1))
+fib($x) = fibs($x)[0]
+main = fib(10)
+```
+
+### Infinite List Lazy Fibonacci
+A demonstrations of laziness using an infinite list fibonacci numbers:
+```
+fibs_after_nth($x) = cons(fib($x), fibs_after_nth($x+1))
+infini_fibs = fibs_after_nth(1)
+main = infini_fibs[3:5]
+```
 
 ## Contributors
-Jacob Edelman is the leader and creator of Lark. Pull requests are welcome.
-
-## Praise?
-- _"It's one thing to make a language that I think is trash. It's another to
-implement it in a way that is harmful to the reader."_ - @aatxe on an earlier,
-and much messier, version of Lark.
-
-- _"We need to force-feed JacobEdelman some JSLint."_ - Anonymous on the
-horrible JS style in an earlier version of Lark.
-
-- _"Your language seems like total nonsense and deserves to be executed
-publicly."_  - @Hypersonic upon seeing the first somewhat functioning version of
-lark.
-
--  _"As far as I'm concerned, self-mutate is synonymous with self-mutilate in
-terms of a programming language's capabilities."_ - @aatxe on Lark's mutable
-syntax.
-
-- _"Language appears to have no use to anyone. Please consider fixing this in
-the next update."_ - On Github by z3t in a Lark issue.
+Jacob Edelman is the leader and, as of now, the sole creator of Lark. Pull requests are welcome.
 
 
 ## History:
