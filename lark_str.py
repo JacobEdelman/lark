@@ -2,16 +2,13 @@ from lark_utils import Fail, flatten
 from terms import builtin_func, pattern_wild, expr, wild, seq, lit
 from lark_int import lark_int, int_wild
 from lexer import to_rules, lex
-from ast import literal_eval # BAD
+from ast import literal_eval 
 import string
-# add in one item list
+
 def str_pattern_func(x, exprs = None):
-    if isinstance(x,lit) and x.val == '""': # shouldn't happen..
+    if isinstance(x,lit) and x.val == '""':
         return lex("str(nil)")
     elif isinstance(x,seq) and len(x) == 1 and isinstance(x[0], lit) and x[0].val[0] == '"' and x[0].val[-1] == '"':
-        # No Check
-        # if not all(i!= '"' for i in x[0].val[1:-1]):
-        #     return Fail
 
         try:
             lit_val = literal_eval(x[0].val)
@@ -20,7 +17,6 @@ def str_pattern_func(x, exprs = None):
 
         items = lit_val[::-1]
         ret = lex("nil")
-        #eval it for escaped stuffs
         for i in items:
             ret = seq(
                     lex("cons(") +
@@ -56,14 +52,14 @@ def str_val_helper(x):
         x[0].val == "nil":
         return ""
     elif not isinstance(x, seq) or len(x) != 6 or not isinstance(x[2], seq)\
-        or len(x[2]) != 4: # could check better
+        or len(x[2]) != 4:
         return None
     test = str_val_helper(x[-2])
     if test == None:
         return None
     return chr(x[2][2]) + test
 
-class int_to_str_func(builtin_func): # WILL NOT WORK
+class int_to_str_func(builtin_func):
     def __init__(self, x):
         self.x = x
         self.func = lambda matched_dict: to_lark_str(str(matched_dict[self.x]))

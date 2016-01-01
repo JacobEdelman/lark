@@ -3,8 +3,13 @@ A programming language with mutable syntax.
 ______
 0.3.3: The prototyped version.
 
+__Name: Note that Lark does share a name with another, obscure
+[Lark](https://github.com/munificent/lark) that was last updated when I was 11.
+This Lark has no relationship whatsoever with the other Lark except, by chance,
+sharing a name. __
+
 ## Vision
-Lark aims to be a language where syntax is fully mutable and all functions are defined simply as syntax mutations. This is similar to macros, but more powerful as a set of transformations (functions except with arbitrary syntax) is seen as a form of context-free grammar, and an algorithm similar to Earley parsing is used to parse the program. This is augmented by automatically handling interdependencies regardless of the order transformations are given in. 
+Lark aims to be a language where syntax is fully mutable and all functions are defined simply as syntax mutations. This is similar to macros, but more powerful as a set of transformations (functions except with arbitrary syntax) is seen as a form of context-free grammar, and an algorithm similar to CYK parsing is used to parse the program. This is augmented by automatically handling interdependencies regardless of the order transformations are given in.
 
 ## Status
 Lark is in very heavy development. As of now Lark can function fully and may be
@@ -12,7 +17,7 @@ usable for small tasks. The initial goal of making a proof-of-concept is
 complete.
 
 ## Use
-Lark is used in the following manner: `python lark [space seperated file names
+Lark is used in the following manner: `python lark [space separated file names
 to execute]`
 
 ## Examples

@@ -1,0 +1,1 @@
+main = "hi there"[0:3] + "I'm Jacob"[-5:] + "\n" + "it is nice to meet you sir"[6:-4]

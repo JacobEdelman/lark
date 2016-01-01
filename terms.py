@@ -75,7 +75,6 @@ class expr:
             if attempt != Fail:
 
                 attempt = output_form.sub(attempt)
-                # print flatten2(current), flatten2(attempt)
                 if attempt == self:
                     attempt.normal = True
                     return attempt
@@ -269,7 +268,6 @@ class seq(tuple, expr):
                             ret = seq(left_attempt + right_attempt)
                             memed_seq[self, x] = ret
                             return ret
-
         return Fail
 
 

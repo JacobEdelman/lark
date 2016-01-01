@@ -106,22 +106,35 @@ class more_than_func(builtin_func):
     def __repr__(self):
         return self.x.__repr__()+">"+self.y.__repr__()
 
-class equal_func(builtin_func): # WILL NOT WORK
+class equal_func(builtin_func):
     def __init__(self, x, y):
         self.x = x
         self.y = y
         self.func = lambda matched_dict: (matched_dict[self.x]==matched_dict[self.y] and lark_true ) or lark_false
     def __repr__(self):
-        return self.x.__repr__()+"=="+self.y.__repr__()
+        return self.x.__repr__()+" is "+self.y.__repr__()
 
-class mod_func(builtin_func): # WILL NOT WORK
+class mod_func(builtin_func):
     def __init__(self, x, y):
         self.x = x
         self.y = y
         self.func = lambda matched_dict: lark_int(matched_dict[self.x]%matched_dict[self.y])
     def __repr__(self):
         return self.x.__repr__()+"%"+self.y.__repr__()
-
+class multiplication_func(builtin_func):
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.func = lambda matched_dict: lark_int(matched_dict[self.x]*matched_dict[self.y])
+    def __repr__(self):
+        return self.x.__repr__()+"*"+self.y.__repr__()
+class division_func(builtin_func):
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.func = lambda matched_dict: lark_int(matched_dict[self.x]//matched_dict[self.y])
+    def __repr__(self):
+        return self.x.__repr__()+"/"+self.y.__repr__()
 
 int_cast_rule = (int_pattern("x"), int_pattern("x")) # so...
 # int_wild_rule = (seq([int_wild("x")]), seq([int_wild("x")]))
@@ -132,8 +145,10 @@ int_less_than_rule = (seq([int_wild("x"), lit("<"), int_wild("y")]), less_than_f
 int_more_than_rule = (seq([int_wild("x"), lit(">"), int_wild("y")]), more_than_func("x", "y"))
 int_equals_rule = (seq([int_wild("x"), lit("is"), int_wild("y")]), equal_func("x", "y"))
 int_mod_rule = (seq([int_wild("x"), lit("%"), int_wild("y")]), mod_func("x", "y"))
+int_multiplication_rule = (seq([int_wild("x"), lit("*"), int_wild("y")]), multiplication_func("x", "y"))
+int_division_rule = (seq([int_wild("x"), lit("/"), int_wild("y")]), division_func("x", "y"))
 base_int_rules = [int_cast_rule, int_equals_rule, int_addition_rule, int_subtraction_rule,
-    int_less_than_rule, int_more_than_rule, int_mod_rule]
+    int_less_than_rule, int_more_than_rule, int_mod_rule, int_multiplication_rule, int_division_rule]
 
 gen_int_rules = to_rules("""
 $x is $y = $x is $y
@@ -141,5 +156,8 @@ $x + $y = $x + $y
 $x < $y = $x < $y
 $x > $y = $x > $y
 $x - $y = $x - $y
-$x % $y = $x % $y""")
+$x % $y = $x % $y
+$x * $y = $x * $y
+$x / $y = $x / $y
+""")
 int_rules = base_int_rules + gen_int_rules

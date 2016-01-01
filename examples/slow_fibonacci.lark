@@ -1,0 +1,4 @@
+fib($x)=fib($x-1)+fib($x-2)
+fib(1)=1
+fib(2)=1
+main = fib(20)

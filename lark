@@ -1,4 +1,4 @@
-
+#!/usr/bin/python
 import lexer
 import parse_rules
 import lark_utils
@@ -7,30 +7,28 @@ import parse_expr
 import sys
 
 
-# the current problem comes from the ordering... yeah (some thigns are getting parsed too thouroughly too early)
 Fail = lark_utils.Fail
 
-import lark_int, lark_list, lark_str, lark_socket
+import lark_int, lark_list, lark_str
 
 exprs = []
-def exe_text(x): #BAD
+def exe_text(x):
     global exprs
     rules = []
     to_eval = []
-
-    exprs = lark_int.int_rules + lark_list.list_rules + lark_str.str_rules + \
-        lark_socket.socket_rules
+    # add in dill for speed at some point
+    exprs = lark_int.int_rules + lark_list.list_rules + lark_str.str_rules
     exprs += lexer.to_rules(x)
     exprs, parser_exprs = parse_rules.parse_rules(exprs)
     exprs.reverse()
-    print "Rules Compiled"
+#    print "Rules Compiled"
     compiled_parts = []
     to_eval =["main"]
     for i in to_eval:
         i = i.strip()
         if i!="":
             compiled_parts.append(parse_expr.parse_expr(lexer.lex(i), parser_exprs))
-    print "Expressions Compiled"
+#    print "Expressions Compiled"
     # for x,y in exprs:
     #     print lark_utils.flatten2(x), lark_utils.flatten2(y)
     for i in compiled_parts:
@@ -39,10 +37,10 @@ def exe_text(x): #BAD
 
 
 
-
-import cProfile
-def main_test():
-    cProfile.run('main()')
+# For testing:
+# import cProfile
+# def main_test():
+#     cProfile.run('main()')
 def main():
     if len(sys.argv) == 1:
         print "At least one argument needed"

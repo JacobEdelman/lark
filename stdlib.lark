@@ -27,17 +27,23 @@ if $z then $x else $y = if $z then $x else $y
 nil[$x] = nil
 $a[$x] = $a[$x]
 cons($a,$b)[0] = $a
-cons($a,$b)[$x] = if $x>0 then $b[$x-1] else cons($a, $b)[$x % len(cons($a, $b))]
+cons($a,$b)[$x] = if $x>0 then $b[$x-1] else {
+  cons($a, $b)[$x % len(cons($a, $b))]
+}
 
 $a[:$x] = $a[:$x]
 nil[:$x]= nil
 cons($a, $b)[:0]= nil
-cons($a, $b)[:$x] = if $x>0 then cons($a,$b[:$x-1]) else cons($a, $b)[:$x % len(cons($a, $b))]
+cons($a, $b)[:$x] = if $x>0 then cons($a,$b[:$x-1]) else {
+  cons($a, $b)[:$x % len(cons($a, $b))]
+}
 
 $a[$x:] = $a[$x:]
 nil[$x:] = nil
 $a[0:] = $a
-cons($a,$b)[$x:] = if $x>0 then $b[$x-1:] else cons($a, $b)[$x % len(cons($a, $b)):]
+cons($a,$b)[$x:] = if $x>0 then $b[$x-1:] else {
+  cons($a, $b)[$x % len(cons($a, $b)):]
+}
 
 $a[$x:$y] = $a[:$y][$x:]
 
@@ -50,7 +56,7 @@ nil is $a = False
 char($a) is char($b) = $a is $b
 cons($a, $b) is cons($c, $d) = ($a is $c) and ($b is $d)
 str($a) is str($b) = $a is $b
-str($a)[$b]=str($a[$b])
+str($a)[$b]=str(cons($a[$b], nil))
 str($a) + str($b) = str($a + $b)
 len(str($a)) = len($a)
 str($a)[:$b] = str($a[:$b])

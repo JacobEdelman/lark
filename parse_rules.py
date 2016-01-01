@@ -61,7 +61,7 @@ def post_parse_rules(sorted_rules):
 
     for i in range(len(sorted_rules)):
         current_rule = sorted_rules.pop()
-        # do not include self....
+    
         trying_form, trying_out = current_rule
     #    attempt_out = parse_expr.parse_expr(trying_out, unambigous_rules_temp) #include raw forms instead?
         new_form = trying_form.exe_parts(sorted_rules+[(trying_form, trying_form)])

@@ -1,0 +1,7 @@
+fib_helper($x, $a, $b) = if $x < 2 then $a else fib_helper($x - 1, $a + $b, $a)
+fib($x) = fib_helper($x - 1, 1, 1)
+
+fibs_after_nth($x) = cons(fib($x+1), fibs_after_nth($x+1))
+infini_fibs = fibs_after_nth(0)
+
+main = infini_fibs[5] 

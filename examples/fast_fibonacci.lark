@@ -1,0 +1,3 @@
+fib_helper($x, $a, $b) = if $x < 2 then $a else fib_helper($x - 1, $a + $b, $a)
+fib($x) = fib_helper($x - 1, 1, 1)
+main = fib(20)
