@@ -104,5 +104,3 @@ times. I think. I lost count. The newest version is in python.
 added to Lark.
 - Version 0.3.3: Lark can be demoed and tests all work. Socket addition has
 begun and a standard library has been initialized. To string methods were added.
-- Version 0.3.3: Lark now runs with Python 3 as well as Python 2. Python 3 is
-significantly faster.
