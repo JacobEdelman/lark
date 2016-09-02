@@ -6,17 +6,18 @@ import terms
 import parse_expr
 import sys
 
+sys.setrecursionlimit(10000) # ummm... oh dear
 
 Fail = lark_utils.Fail
 
-import lark_int, lark_list, lark_str
+import lark_int, lark_list, lark_str, lark_socket
 exprs = []
 def exe_text(x):
     global exprs
     rules = []
     to_eval = []
     # add in dill for speed at some point
-    exprs = lark_int.int_rules + lark_list.list_rules + lark_str.str_rules
+    exprs = lark_int.int_rules + lark_list.list_rules + lark_str.str_rules + lark_socket.socket_rules
     exprs += lexer.to_rules(x)
     exprs, parser_exprs = parse_rules.parse_rules(exprs)
     exprs.reverse()

@@ -270,7 +270,7 @@ class seq(tuple, expr):
                             return ret
         return Fail
 
-
+import copy
 class builtin_func(wild):
     lazys = []
     def __init__(self, func):
@@ -282,14 +282,15 @@ class builtin_func(wild):
             if k not in self.lazys:
                 self.matched_dict[k] = self.matched_dict[k].exe(exprs)
 
-        return self.func(self.matched_dict)
+        return self.func(self.matched_dict, exprs) # .lazy_exe(exprs)
 
     def sub(self, matched_dict):
         for k in matched_dict:
             matched_dict[k] = matched_dict[k].sub(matched_dict)
-
-        self.matched_dict = matched_dict
-        return self
+        ret = copy.deepcopy(self) # UGLY!!!
+        ret.matched_dict = matched_dict
+        #self.matched_dict = matched_dict
+        return ret
 
     def parse(self, x, exprs):
         attempt = self.match(x)

@@ -11,7 +11,7 @@ def str_to_parts(x): # not good, : troubles
     index = 0
     in_string = rets[0] == '"'
     escaped = False
-    for i in x[1:]:
+    for i in x[1:]: # WHY SKIP THE FIRST?
         index +=1
         if escaped:
             rets[-1]+=i
@@ -73,17 +73,18 @@ def break_into_parts(x):
     multiline = False
     in_string = False
     escaped = False
+
     for i in x:
         to_become_second_part = False
         if escaped:
             ret[-1]+=i
+            escaped = False
             continue
         elif in_string:
             ret[-1]+=i
             in_string = (i != '"')
             escaped = (i == "\\")
             continue
-
 
         ret[-1]+=i
         if i == '"':

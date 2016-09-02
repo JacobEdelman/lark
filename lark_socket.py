@@ -80,14 +80,15 @@ class open_socket_func(builtin_func):
         self.port = port
         self.callback = callback
 
-        def func_open_socket(matched_dict):
+        def func_open_socket(matched_dict, exprs):
             sock = matched_dict[self.socket].socket
             host = str_val(matched_dict[self.host])
             port = int(matched_dict[self.port])
             sock.connect((host, port))
-            print "connected"
-            return matched_dict[self.callback]
+            print("connected")
+            return matched_dict[self.callback].lazy_exe(exprs)
         self.func = func_open_socket
+
     def __repr__(self):
         return self.socket.__repr__() + ".open " + self.host.__repr__() + " " + \
             self.port.__repr__() + " " + self.callback.__repr__()
@@ -97,34 +98,55 @@ class recv_socket_func(builtin_func):
     def __init__(self, socket, num):
         self.socket = socket
         self.num = num
-        def func_recv_socket(matched_dict):
+        def func_recv_socket(matched_dict, exprs):
             sock = matched_dict[self.socket].socket
             num = matched_dict[self.num]
             msg = sock.recv(num)
-            print "recieved", msg
-            return to_lark_str(msg)
+            print("recieved", str(msg.decode("utf-8"))) # converts from bytes in Python 3
+            return to_lark_str(str(msg.decode("utf-8")))
         self.func = func_recv_socket
 
     def __repr__(self):
         return self.socket.__repr__() + ".recv " + self.num.__repr__()
-
+from lark_utils import flatten
+from lark_str import str_val
 class send_socket_func(builtin_func):
     lazys = ["callback"]
     def __init__(self, socket, msg, callback):
         self.socket = socket
         self.msg = msg
         self.callback = callback
-        def func_send_socket(matched_dict):
+        def func_send_socket(matched_dict, exprs):
             sock = matched_dict[self.socket].socket
             msg = matched_dict[self.msg]
-            print "sending", str_val(msg)
-            sock.send(str_val(msg))
-            return matched_dict[self.callback]
+            print("sending", str_val(msg))
+            #sendall???
+            sock.sendall(str.encode(str_val(msg))) # converts to bytes in Python 3
+            return matched_dict[self.callback].lazy_exe(exprs)
         self.func = func_send_socket
 
     def __repr__(self):
         return self.socket.__repr__() + ".send " + self.msg.__repr__() + \
         " " +  self.callback.__repr__()
+
+lark_true = lex("True")
+lark_false = lex("False")
+import select
+class has_data_socket_func(builtin_func):
+
+    def __init__(self, socket):
+        self.socket = socket
+        def func_has_data_socket(matched_dict, exprs):
+            sock = matched_dict[self.socket].socket
+            rs, ws, es = select.select([sock], [sock], [sock])
+            if len(rs) == 1:
+                return lark_true
+            else:
+                return lark_false
+        self.func = func_has_data_socket
+
+    def __repr__(self):
+        return self.socket.__repr__() + ".has_data"
 
 new_socket_rule = (socket_pattern("x"), socket_pattern("x"))
 
@@ -140,14 +162,18 @@ send_socket_rule = (seq([socket_wild("socket"), lit("."), lit("send"),
                 wild("msg"), wild("callback")]),
                 send_socket_func("socket", "msg", "callback"))
 
+has_data_socket_rule = (seq([socket_wild("socket"), lit("."), lit("has_data")]),
+                has_data_socket_func("socket"))
 
 
+# NAMED VARS!!
 gen_socket_rules = to_rules("""
 $s.open $x $y $z = $s.open $x $y $z
 $s.recv $x = $s.recv $x
 $s.send $x $y = $s.send $x $y
+$s.has_data = $s.has_data
 """)
 
 base_socket_rules = [new_socket_rule, open_socket_rule, recv_socket_rule,
-                    send_socket_rule]
+                    send_socket_rule, has_data_socket_rule]
 socket_rules = base_socket_rules + gen_socket_rules

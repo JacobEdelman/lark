@@ -9,7 +9,6 @@ def str_pattern_func(x, exprs = None):
     if isinstance(x,lit) and x.val == '""':
         return lex("str(nil)")
     elif isinstance(x,seq) and len(x) == 1 and isinstance(x[0], lit) and x[0].val[0] == '"' and x[0].val[-1] == '"':
-
         try:
             lit_val = literal_eval(x[0].val)
         except ValueError:
@@ -62,7 +61,7 @@ def str_val_helper(x):
 class int_to_str_func(builtin_func):
     def __init__(self, x):
         self.x = x
-        self.func = lambda matched_dict: to_lark_str(str(matched_dict[self.x]))
+        self.func = lambda matched_dict, exprs: to_lark_str(str(matched_dict[self.x]))
     def __repr__(self):
         return "str(" + self.x.__repr__() + ")"
 

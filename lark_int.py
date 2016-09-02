@@ -77,7 +77,7 @@ class addition_func(builtin_func):
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.func = lambda matched_dict: lark_int(matched_dict[self.x]+matched_dict[self.y])
+        self.func = lambda matched_dict, exprs: lark_int(matched_dict[self.x]+matched_dict[self.y])
     def __repr__(self):
         return self.x.__repr__()+"+"+self.y.__repr__()
 
@@ -85,7 +85,7 @@ class subtraction_func(builtin_func):
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.func = lambda matched_dict: lark_int(matched_dict[self.x]-matched_dict[self.y])
+        self.func = lambda matched_dict, exprs: lark_int(matched_dict[self.x]-matched_dict[self.y])
     def __repr__(self):
         return self.x.__repr__()+"-"+self.y.__repr__()
 lark_true = lex("True")
@@ -94,7 +94,7 @@ class less_than_func(builtin_func):
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.func = lambda matched_dict: (matched_dict[self.x]<matched_dict[self.y] and lark_true ) or lark_false
+        self.func = lambda matched_dict, exprs: (matched_dict[self.x]<matched_dict[self.y] and lark_true ) or lark_false
     def __repr__(self):
         return self.x.__repr__()+"<"+self.y.__repr__()
 
@@ -102,7 +102,7 @@ class more_than_func(builtin_func):
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.func = lambda matched_dict: (matched_dict[self.x]>matched_dict[self.y] and lark_true ) or lark_false
+        self.func = lambda matched_dict, exprs: (matched_dict[self.x]>matched_dict[self.y] and lark_true ) or lark_false
     def __repr__(self):
         return self.x.__repr__()+">"+self.y.__repr__()
 
@@ -110,7 +110,7 @@ class equal_func(builtin_func):
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.func = lambda matched_dict: (matched_dict[self.x]==matched_dict[self.y] and lark_true ) or lark_false
+        self.func = lambda matched_dict, exprs: (matched_dict[self.x]==matched_dict[self.y] and lark_true ) or lark_false
     def __repr__(self):
         return self.x.__repr__()+" is "+self.y.__repr__()
 
@@ -118,21 +118,21 @@ class mod_func(builtin_func):
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.func = lambda matched_dict: lark_int(matched_dict[self.x]%matched_dict[self.y])
+        self.func = lambda matched_dict, exprs: lark_int(matched_dict[self.x]%matched_dict[self.y])
     def __repr__(self):
         return self.x.__repr__()+"%"+self.y.__repr__()
 class multiplication_func(builtin_func):
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.func = lambda matched_dict: lark_int(matched_dict[self.x]*matched_dict[self.y])
+        self.func = lambda matched_dict, exprs: lark_int(matched_dict[self.x]*matched_dict[self.y])
     def __repr__(self):
         return self.x.__repr__()+"*"+self.y.__repr__()
 class division_func(builtin_func):
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.func = lambda matched_dict: lark_int(matched_dict[self.x]//matched_dict[self.y])
+        self.func = lambda matched_dict, exprs: lark_int(matched_dict[self.x]//matched_dict[self.y])
     def __repr__(self):
         return self.x.__repr__()+"/"+self.y.__repr__()
 
