@@ -1,7 +1,7 @@
 # Lark
 A programming language with mutable syntax.
 ______
-0.3.4: The prototyped version.
+0.3.3: The prototyped version.
 
 __Name: Note that Lark does share a name with another, obscure
 [Lark](https://github.com/munificent/lark) that was last updated when I was 11.
