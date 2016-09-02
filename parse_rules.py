@@ -8,7 +8,7 @@ def parse_forms(raw_rules, parser_rules = None):
         current = raw_rules.pop()
         trying_form, trying_out = current
 
-        attempt_form = parse_expr.parse_expr(trying_form, map(lambda i:(i[0],i[0]),rules+raw_rules)) #include raw forms instead?
+        attempt_form = parse_expr.parse_expr(trying_form, [(i[0],i[0]) for i in rules+raw_rules]) #include raw forms instead?
         final_form = trying_form
         if attempt_form != Fail:
             final_form = attempt_form
@@ -19,7 +19,7 @@ def parse_forms(raw_rules, parser_rules = None):
 def parse_outs(raw_rules, parser_rules= None):
     if parser_rules == None:
         parser_rules = raw_rules
-    parse_with =  map(lambda i:(i[0],i[0]),parser_rules)
+    parse_with =  [(i[0],i[0]) for i in parser_rules]
     rules = []
     for current in raw_rules: # this reverses order
         trying_form, trying_out = current
@@ -39,7 +39,7 @@ def order_rules(base_rules):
             current= rules.pop()
             if all((current[0].match(r[0]) == Fail or r[0].match(current[0]) != Fail) for r in rules):
                 ret.append(current)
-                base_rules = filter(lambda i: i!=current, base_rules)
+                base_rules = [i for i in base_rules if i!=current]
                 break
             else:
                 rules = [current] + rules
@@ -61,7 +61,7 @@ def post_parse_rules(sorted_rules):
 
     for i in range(len(sorted_rules)):
         current_rule = sorted_rules.pop()
-    
+
         trying_form, trying_out = current_rule
     #    attempt_out = parse_expr.parse_expr(trying_out, unambigous_rules_temp) #include raw forms instead?
         new_form = trying_form.exe_parts(sorted_rules+[(trying_form, trying_form)])
@@ -78,6 +78,8 @@ def post_parse_rules(sorted_rules):
     unambigous_rules = parse_forms(unambigous_rules)
     unambigous_rules.reverse()
     return parse_outs(rules, unambigous_rules), unambigous_rules
+from lark_utils import flatten2
+from sys import exit
 
 def parse_rules(raw_rules):
     return post_parse_rules(parse_forms(order_rules(raw_rules)))

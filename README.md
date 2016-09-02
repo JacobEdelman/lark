@@ -1,7 +1,7 @@
 # Lark
 A programming language with mutable syntax.
 ______
-0.3.3: The prototyped version.
+0.3.4: The prototyped version.
 
 __Name: Note that Lark does share a name with another, obscure
 [Lark](https://github.com/munificent/lark) that was last updated when I was 11.
@@ -18,7 +18,8 @@ complete.
 
 ## Use
 Lark is used in the following manner: `python lark [space separated file names
-to execute]`
+to execute]`. It works in both Python 2 and Python 3 as of now but Python 3 appears
+to be significantly faster.
 
 ## Examples
 
@@ -103,3 +104,5 @@ times. I think. I lost count. The newest version is in python.
 added to Lark.
 - Version 0.3.3: Lark can be demoed and tests all work. Socket addition has
 begun and a standard library has been initialized. To string methods were added.
+- Version 0.3.3: Lark now runs with Python 3 as well as Python 2. Python 3 is
+significantly faster.

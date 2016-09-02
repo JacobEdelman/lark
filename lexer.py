@@ -102,5 +102,7 @@ def break_into_parts(x):
             multiline = False
         second_part |= to_become_second_part
     return ret
+
 def to_rules(x):
-    return map(lambda i:to_rule(i.strip()),filter(lambda i: i.strip()!="", break_into_parts(x)))
+    ret=[to_rule(i.strip()) for i in break_into_parts(x) if i.strip()!=""]
+    return ret

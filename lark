@@ -10,7 +10,6 @@ import sys
 Fail = lark_utils.Fail
 
 import lark_int, lark_list, lark_str
-
 exprs = []
 def exe_text(x):
     global exprs
@@ -31,9 +30,10 @@ def exe_text(x):
 #    print "Expressions Compiled"
     # for x,y in exprs:
     #     print lark_utils.flatten2(x), lark_utils.flatten2(y)
+
     for i in compiled_parts:
         to_exe = terms.seq(lexer.lex("str(") + terms.seq((i,)) + lexer.lex(")"))
-        print lark_str.str_val(to_exe.exe(exprs))
+        print(lark_str.str_val(to_exe.exe(exprs)))
 
 
 
@@ -43,7 +43,7 @@ def exe_text(x):
 #     cProfile.run('main()')
 def main():
     if len(sys.argv) == 1:
-        print "At least one argument needed"
+        print("At least one argument needed")
     else:
         stdlib_file = open("stdlib.lark")
         text = stdlib_file.read() + "\n"

@@ -26,7 +26,7 @@ class lit:
         return self
 
     def __repr__(self):
-        return `(self.val)`
+        return self.val.__repr__()
 
     def lazy_exe(self, exprs):
         return self
@@ -142,7 +142,6 @@ class wild(expr):
 
         return memed[x]
 
-
 class seq(tuple, expr):
 
     def exe_parts(self, exprs):
@@ -153,6 +152,7 @@ class seq(tuple, expr):
             return seq(((input_term if my_term.lazy else input_term.lazy_exe(exprs)) for my_term, input_term in zip(self, x)))
         else:
             return x
+
 
     def exe(self, exprs):
         ret = self.lazy_exe(exprs).exe_parts(exprs)
@@ -252,7 +252,7 @@ class seq(tuple, expr):
                 midpoint = self.get_midpoint()
                 startpoint = midpoint
 
-                endpoint = len(x) - len(self) / 2 + 1
+                endpoint = len(x) - len(self) // 2 + 1
                 left_half = seq(self[:midpoint])
                 right_half = seq(self[midpoint:])
                 first_lit = self[midpoint]

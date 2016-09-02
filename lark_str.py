@@ -2,7 +2,7 @@ from lark_utils import Fail, flatten
 from terms import builtin_func, pattern_wild, expr, wild, seq, lit
 from lark_int import lark_int, int_wild
 from lexer import to_rules, lex
-from ast import literal_eval 
+from ast import literal_eval
 import string
 
 def str_pattern_func(x, exprs = None):
@@ -37,7 +37,7 @@ class str_pattern(pattern_wild):
         memed[x] = self.pattern(x, exprs )
         return memed[x]
 def to_lark_str(x):
-    return str_pattern_func(lex('"'+`x`[1:-1].replace('"','\\"')+'"'))
+    return str_pattern_func(lex('"'+x.__repr__()[1:-1].replace('"','\\"')+'"')) # WAT??
 def str_val(x):
     if isinstance(x, seq) and len(x) == 4 and isinstance(x[0], lit) and \
         isinstance(x[1], lit) and x[0].val == "str" and x[1].val == "(" and \
