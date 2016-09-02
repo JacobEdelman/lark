@@ -45,7 +45,7 @@ cons($a,$b)[$x:] = if $x>0 then $b[$x-1:] else {
   cons($a, $b)[$x % len(cons($a, $b)):]
 }
 
-$a[$x:$y] = $a[:$y][$x:]
+$a[$x:$y] = if $x>0 then $a[:$y][$x:] else $a[:$y][$x % len($a):]
 
 len($a) = len($a)
 len(nil) = 0
@@ -62,3 +62,5 @@ len(str($a)) = len($a)
 str($a)[:$b] = str($a[:$b])
 str($a)[$b:] = str($a[$b:])
 str($a)[$x:$y] = str($a[$x:$y])
+
+$a;$b = if $a is nil then $b else $b
