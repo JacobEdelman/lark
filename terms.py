@@ -191,7 +191,7 @@ class seq(tuple, expr):
                     ret += 1
 
             else:
-                ret = len(self) / 2
+                ret = len(self) // 2
             self.memed_midpoint = ret
             return ret
         return self.memed_midpoint
