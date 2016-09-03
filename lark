@@ -6,7 +6,7 @@ import terms
 import parse_expr
 import sys
 
-sys.setrecursionlimit(10000) # ummm... oh dear
+sys.setrecursionlimit(100000) # ummm... oh dear
 
 Fail = lark_utils.Fail
 
@@ -17,20 +17,19 @@ def exe_text(x):
     rules = []
     to_eval = []
     # add in dill for speed at some point
-    exprs = lark_int.int_rules + lark_list.list_rules + lark_str.str_rules + lark_socket.socket_rules
+    # NEED TO HAVE SEMICOLONS SOMEWHERE??? ORDERING THINGS IS WEIRD
+    exprs = lark_int.int_rules + lark_list.list_rules + lark_str.str_rules
     exprs += lexer.to_rules(x)
+    exprs += lark_socket.socket_rules # IS THIS ORDER OKAY????
     exprs, parser_exprs = parse_rules.parse_rules(exprs)
     exprs.reverse()
-#    print "Rules Compiled"
+
     compiled_parts = []
     to_eval =["main"]
     for i in to_eval:
         i = i.strip()
         if i!="":
             compiled_parts.append(parse_expr.parse_expr(lexer.lex(i), parser_exprs))
-#    print "Expressions Compiled"
-    # for x,y in exprs:
-    #     print lark_utils.flatten2(x), lark_utils.flatten2(y)
 
     for i in compiled_parts:
         to_exe = terms.seq(lexer.lex("str(") + terms.seq((i,)) + lexer.lex(")"))

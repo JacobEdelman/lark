@@ -8,7 +8,6 @@ nil+nil = nil
 
 cons($x, $y)+$z = cons($x, $y+$z)
 
-
 True = True
 False = False
 not $a = not $a
@@ -53,6 +52,7 @@ len(cons($a, $b)) = 1 + len($b)
 
 nil is nil = True
 nil is $a = False
+$a is nil = False
 char($a) is char($b) = $a is $b
 cons($a, $b) is cons($c, $d) = ($a is $c) and ($b is $d)
 str($a) is str($b) = $a is $b

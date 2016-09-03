@@ -101,8 +101,9 @@ class recv_socket_func(builtin_func):
         def func_recv_socket(matched_dict, exprs):
             sock = matched_dict[self.socket].socket
             num = matched_dict[self.num]
+            # print(matched_dict)
             msg = sock.recv(num)
-            print("recieved", str(msg.decode("utf-8"))) # converts from bytes in Python 3
+            print("recieved", str(msg.decode("utf-8")).__repr__()) # converts from bytes in Python 3
             return to_lark_str(str(msg.decode("utf-8")))
         self.func = func_recv_socket
 
